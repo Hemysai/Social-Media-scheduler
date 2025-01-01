@@ -1,2 +1,2 @@
-# CURmetrics
-Insights ad dashboard builder for AWS cost explorer utilizing amazon Glue
+# Social Media scheduler
+Creating a scheduler and prompt creater for organizing and help posting on social media
