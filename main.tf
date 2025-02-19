@@ -1,15 +1,18 @@
 provider "aws" {
-  region = "us-east-1"  # Set your desired AWS region
+  region = "us-east-1"
 }
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "my-awesome-bucket"  # Replace with a globally unique bucket name
-  # Remove the deprecated ACL argument here
+  bucket = "my-awesome-bucket-${random_integer.suffix.result}" # Generates a unique bucket name
 }
 
 resource "aws_s3_bucket_acl" "my_bucket_acl" {
   bucket = aws_s3_bucket.my_bucket.bucket
-  acl    = "private"  # Set ACL to private
+  acl    = "private"
 }
 
-# Optional: you can add other resources such as IAM roles, policies, etc., below
+# Generates a random number to ensure uniqueness
+resource "random_integer" "suffix" {
+  min = 100000
+  max = 999999
+}
