@@ -44,4 +44,7 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        env:
+          META_GRAPH_API_ACCESS_TOKEN: ${{ secrets.META_GRAPH_API_ACCESS_TOKEN }}
+        run: terraform apply -auto-approve -var "meta_graph_api_access_token=${{ secrets.META_GRAPH_API_ACCESS_TOKEN }}"
+      
