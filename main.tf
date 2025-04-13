@@ -55,7 +55,7 @@ resource "aws_iam_role_policy" "lambda_policy" {
 resource "aws_lambda_function" "meta_graph_lambda" {
   function_name = "MetaGraphAPIToS3"
   role          = aws_iam_role.lambda_role.arn
-  handler       = "lambda_function.lambda_handler"  # Make sure this matches your Python function
+  handler       = "lambda_function.lambda_handler"  # Ensure this matches the Python function handler
   runtime       = "python3.8"
   timeout       = 15
   filename      = "function.zip"  # Path to your lambda zip file
@@ -68,15 +68,4 @@ resource "aws_lambda_function" "meta_graph_lambda" {
   }
 
   depends_on = [aws_iam_role.lambda_role]
-}
-
-# Data source to fetch the IAM policy document for Lambda execution
-data "aws_iam_policy_document" "lambda_assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
-  }
 }
