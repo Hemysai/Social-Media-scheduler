@@ -45,6 +45,6 @@ jobs:
 
       - name: Terraform Apply
         env:
-          META_GRAPH_API_ACCESS_TOKEN: ${{ secrets.META_GRAPH_API_ACCESS_TOKEN }}
-        run: terraform apply -auto-approve -var "meta_graph_api_access_token=${{ secrets.META_GRAPH_API_ACCESS_TOKEN }}"
-      
+          META_GRAPH_API_ACCESS_TOKEN: ${{ secrets.META_GRAPH_API_ACCESS_TOKEN }}  # Pass API token as an environment variable
+        run: |
+          terraform apply -auto-approve -var "meta_graph_api_access_token=${{ secrets.META_GRAPH_API_ACCESS_TOKEN }}"
