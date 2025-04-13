@@ -20,7 +20,7 @@ resource "aws_iam_role" "lambda_role" {
 }
 
 # Assume role policy for Lambda to access the IAM role
-resource "aws_iam_policy_document" "lambda_assume_role_policy" {
+data "aws_iam_policy_document" "lambda_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
     principals {
