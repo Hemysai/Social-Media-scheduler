@@ -1,17 +1,14 @@
-variable "vpc_cidr_block" {
-  description ="CIDR block for the vpc"
-  type = string
-  default = "10.0.0.0/16"
+variable "aws_region" {
+  description = "The AWS region to deploy to"
+  type        = string
 }
 
-variable "subnet_public_cidr" {
-    description = "CIDR block for public subnet"
-    type = string
-    default = "10.0.1.0/24"
+variable "db_secret_name" {
+  description = "Name of the secret in Secrets Manager"
+  type        = string
 }
 
-variable "subnet_private_cidr" {
-    description = "CIDR block for private subnet"
-    type = string
-    default = "10.0.2.0/24"
+variable "rds_subnet_group_name" {
+  description = "The RDS subnet group name"
+  type        = string
 }
