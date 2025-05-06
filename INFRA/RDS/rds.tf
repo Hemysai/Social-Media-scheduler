@@ -11,9 +11,9 @@ resource "aws_db_subnet_group" "main" {
   subnet_ids = var.subnet_ids
 }
 
-resource "aws_db_instance" "postgres" {
+resource "aws_db_instance" "mysql" {
   identifier              = "insta-rds-postgres"
-  engine                  = "postgres"
+  engine                  = "mysql"
   instance_class          = "db.t3.micro"
   allocated_storage       = 20
   username                = local.db_secrets["username"]
