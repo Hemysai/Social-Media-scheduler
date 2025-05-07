@@ -1,25 +1,31 @@
-data "aws_secretsmanager_secret_version" "db_creds" {
-  secret_id = var.db_secret_name
+
+data "aws_secretsmanager_secret" "db_secret" {
+  arn = "arn:aws:secretsmanager:us-east-1:741448954126:secret:insta-rds-password-WvLr1b"
 }
 
-locals {
-  db_secrets = jsondecode(data.aws_secretsmanager_secret_version.db_creds.secret_string)
+data "aws_secretsmanager_secret_version" "db_secret_version" {
+  secret_id = data.aws_secretsmanager_secret.db_secret.id
 }
 
-resource "aws_db_subnet_group" "main" {
-  name       = var.rds_subnet_group_name
+resource "aws_db_subnet_group" "rds_subnet_group" {
+  name       = "rds-subnet-group"
   subnet_ids = var.subnet_ids
+
+  tags = {
+    Name = "insta-db-subnet-group"
+  }
 }
 
-resource "aws_db_instance" "mysql" {
-  identifier              = "insta-rds-postgres"
-  engine                  = "mysql"
+resource "aws_db_instance" "insta_rds" {
+  identifier              = "insta-rds-instance"
+  engine                  = "postgres"
   instance_class          = "db.t3.micro"
   allocated_storage       = 20
-  username                = local.db_secrets["username"]
-  password                = local.db_secrets["password"]
-  db_name                 = "instadb"
-  db_subnet_group_name    = aws_db_subnet_group.main.name
-  publicly_accessible     = false
+  name                    = "instadb"
+  username                = jsondecode(data.aws_secretsmanager_secret_version.db_secret_version.secret_string)["username"]
+  password                = jsondecode(data.aws_secretsmanager_secret_version.db_secret_version.secret_string)["password"]
+  db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
+  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   skip_final_snapshot     = true
+  publicly_accessible     = false
 }
