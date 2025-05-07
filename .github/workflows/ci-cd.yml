@@ -52,9 +52,9 @@ jobs:
         working-directory: ./infra  # Ensure correct path to your `infra` folder
         if: github.event_name == 'push'  # Only apply when directly pushing (not on PR)
 
-      # Step 8: Upload Terraform State (updated to use v3 of upload-artifact)
+      # Step 8: Upload Terraform State
       - name: Upload Terraform State
-        uses: actions/upload-artifact@v3  # Update to version v3
+        uses: actions/upload-artifact@v2  # Use v2 instead of v3
         with:
           name: terraform-state
           path: ./infra/.terraform/terraform.tfstate  # Path to Terraform state file
