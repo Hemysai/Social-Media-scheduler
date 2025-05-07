@@ -15,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./Social-Media-scheduler/infra
+        working-directory: ./infra
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
