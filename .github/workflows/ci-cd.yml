@@ -31,28 +31,38 @@ jobs:
           AWS_REGION: 'us-east-1'  # Set your AWS region (adjust accordingly)
         run: echo "AWS credentials are set."
 
-      # Step 4: Initialize Terraform
+      # Step 4: Clear Terraform Cache (for debugging)
+      - name: Clear Terraform Cache
+        run: |
+          rm -rf ./infra/.terraform  # Clear any cached Terraform state
+
+      # Step 5: Check Terraform Version (for debugging)
+      - name: Check Terraform version
+        run: terraform version
+        working-directory: ./infra  # Ensure correct path to your `infra` folder
+
+      # Step 6: Initialize Terraform
       - name: Terraform Init
         run: terraform init
         working-directory: ./infra  # Ensure correct path to your `infra` folder
 
-      # Step 5: Validate Terraform Configuration
+      # Step 7: Validate Terraform Configuration
       - name: Terraform Validate
         run: terraform validate
         working-directory: ./infra  # Ensure correct path to your `infra` folder
 
-      # Step 6: Plan Terraform Changes
+      # Step 8: Plan Terraform Changes
       - name: Terraform Plan
         run: terraform plan
         working-directory: ./infra  # Ensure correct path to your `infra` folder
 
-      # Step 7: Apply Terraform Changes (This step requires manual approval or conditional checks)
+      # Step 9: Apply Terraform Changes (This step requires manual approval or conditional checks)
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: ./infra  # Ensure correct path to your `infra` folder
         if: github.event_name == 'push'  # Only apply when directly pushing (not on PR)
 
-      # Step 8: Upload Terraform State
+      # Step 10: Upload Terraform State
       - name: Upload Terraform State
         uses: actions/upload-artifact@v2  # Use v2 instead of v3
         with:
