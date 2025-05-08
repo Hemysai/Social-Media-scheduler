@@ -1,7 +1,7 @@
 name: Terraform Destroy
 
 on:
-  workflow_dispatch:  # Manual only
+  workflow_dispatch:  # Manual trigger only
 
 jobs:
   destroy:
@@ -24,5 +24,8 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    - name: Terraform Destroy
-      run: terraform destroy -auto-approve
+    - name: Terraform Plan
+      run: terraform plan -destroy -out=tfplan
+
+    - name: Terraform Destroy (Stop and Delete EC2)
+      run: terraform apply -auto-approve tfplan
