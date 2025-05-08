@@ -24,7 +24,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    - name: Terraform Plan
+    - name: Terraform Plan (Destroy EC2)
       run: terraform plan -destroy -out=tfplan
 
     - name: Terraform Destroy (Stop and Delete EC2)
