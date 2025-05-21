@@ -5,7 +5,7 @@ variable "vpc_cidr" {
 
 variable "azs" {
   type    = list(string)
-  default = ["us-east-1a", "us-east-1b"] # Change as per region
+  default = ["us-east-1a", "us-east-1b"] 
 }
 
 variable "project" {
