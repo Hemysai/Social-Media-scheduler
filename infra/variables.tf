@@ -24,3 +24,9 @@ variable "azs" {
 variable "project" {
   type = string
 }
+
+variable "rds_secret_name" {
+  type = string
+  default = "insta-rds-password"
+}
+
