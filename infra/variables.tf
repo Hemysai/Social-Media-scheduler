@@ -30,3 +30,9 @@ variable "rds_secret_name" {
   default = "insta-rds-password"
 }
 
+variable "aws_region" {
+  description = "The AWS region to deploy resources into"
+  type        = string
+  default     = "us-east-1" 
+}
+

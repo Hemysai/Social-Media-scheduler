@@ -1,11 +1,5 @@
 terraform {
-  backend "s3" {
-    bucket         = "insta-project-terraform-state"  
-    key            = "infra/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-lock-table"
-    encrypt        = true
-  }
+  required_version = ">= 1.3.0"
 
   required_providers {
     aws = {
@@ -13,4 +7,8 @@ terraform {
       version = "~> 5.0"
     }
   }
+}
+
+provider "aws" {
+  region = var.aws_region
 }
