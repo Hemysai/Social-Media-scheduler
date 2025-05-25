@@ -4,3 +4,4 @@ aws_secret_key = "YOUR_SECRET_KEY_SHOULD_BE_PULLED_FROM_GITHUB"
 vpc_cidr = "10.0.0.0/16"
 azs      = ["us-east-1a", "us-east-1b"]
 project  = "insta-project"
+aws_region = "us-east-1"
