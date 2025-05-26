@@ -4,7 +4,7 @@ data "aws_secretsmanager_secret_version" "rds_secret" {
 
 resource "aws_db_subnet_group" "default" {
   name       = "${var.project}-db-subnet-group"
-  subnet_ids = var.subnet_ids
+  subnet_ids = var.private_subnet_ids
 
   tags = {
     Name = "${var.project}-db-subnet-group"
@@ -20,7 +20,7 @@ resource "aws_security_group" "rds" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"] # optionally use var.vpc_cidr as input
+    cidr_blocks = ["10.0.0.0/16"] 
   }
 
   egress {

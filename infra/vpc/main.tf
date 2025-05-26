@@ -7,6 +7,18 @@ resource "aws_vpc" "main" {
   }
 }
 
+resource "aws_subnet" "private" {
+  count = 2
+  vpc_id = aws_vpc.main
+  cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index+10)
+  availability_zone = element(var.azs, count.index)
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "${var.project}-private-subnet-${count.index + 1}"
+  }
+}
+
 resource "aws_subnet" "public" {
   count             = 2
   vpc_id            = aws_vpc.main.id
