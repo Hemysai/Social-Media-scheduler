@@ -3,7 +3,7 @@ resource "aws_security_group" "bastion" {
   vpc_id = var.vpc_id
 
   ingress {
-    description = "Allow SSH from personal IP"
+    description = "Allows SSH from personal IP"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
