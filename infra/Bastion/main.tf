@@ -1,19 +1,30 @@
 resource "aws_security_group" "bastion" {
-  name = "baastion-sg"
-  description = "allow ssh access"
+  name   = "bastion-sg"
   vpc_id = var.vpc_id
 
-  ingress = "SSH from local"
-  from_port = 22
-  to_port = 22
-  protocol = "tcp"
-  cidr_blocks = [var.my_ip]
+  ingress {
+    description = "Allow SSH from personal IP"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.my_ip_cidr]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 resource "aws_instance" "bastion" {
-  ami = ami-0c02fb55956c7d316
-  instance_type = "t3-micro"
-  subnet_id = module.vpc.public_subnet
+  ami           = "ami-0953476d60561c955" 
+  instance_type = "t3.micro"
+  subnet_id     = var.subnet_id
+  key_name      = var.key_name
+  security_groups = [aws_security_group.bastion.id]
+  tags = {
+    Name = "Bastion Host"
+  }
 }
-
-72.138.140.114
