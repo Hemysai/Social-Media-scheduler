@@ -36,3 +36,10 @@ variable "aws_region" {
   default     = "us-east-1" 
 }
 
+variable "my_ip_cidr" {
+  description = "my ip address in cidr format"
+  type = string
+}
+
+
+

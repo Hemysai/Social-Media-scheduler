@@ -14,3 +14,12 @@ module "rds" {
   availability_zone = var.azs[0]
   rds_secret_name   = var.rds_secret_name
 }
+
+
+module "bastion" {
+  source     = "./bastion"
+  vpc_id     = module.vpc.vpc_id
+  subnet_id  = module.vpc.public_subnet_ids[0]
+  key_name   = var.key_name
+  my_ip_cidr = var.my_ip_cidr
+}
