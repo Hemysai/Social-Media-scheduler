@@ -41,5 +41,9 @@ variable "my_ip_cidr" {
   type = string
 }
 
+variable "key_name" {
+  description = "Name of the EC2 pair for bastion"
+  type = string
+}
 
 

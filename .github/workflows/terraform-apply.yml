@@ -8,6 +8,8 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_MY_IP_CIDR: ${{ secrets.MY_IP_CIDR}}
 
     steps:
       - name: Checkout repo
