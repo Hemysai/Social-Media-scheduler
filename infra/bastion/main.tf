@@ -52,6 +52,16 @@ resource "aws_iam_policy" "bastion_secrets_policy" {
   })
 }
 
+resource "aws_iam_role_policy_attachment" "attach_secrets_policy" {
+  role = aws_iam_role.bastion_role.name
+  policy_arn = aws_iam_policy.bastion_secrets_policy.arn
+}
+
+resource "aws_iam_instance_profile" "bastion_instance_profile" {
+  name = "bastion_instance_profile"
+  role = aws_iam_role.bastion_role.name
+}
+
 resource "aws_instance" "bastion" {
   ami           = "ami-0953476d60561c955" 
   instance_type = "t3.micro"
