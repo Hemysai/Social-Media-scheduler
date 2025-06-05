@@ -18,13 +18,13 @@ resource "aws_security_group" "bastion" {
   }
 }
 
-resource "aws_iam_role" "bastian_role" {
+resource "aws_iam_role" "bastion_role" {
   name= "bastion-iam-role"
 
   assume_role_policy = jsondecode({
     version = "2012-10-17"
     statement = [{
-      Effect = alllow
+      Effect = allow
       principal = {
         service = "ec2.amazon.com"
       }
@@ -33,16 +33,16 @@ resource "aws_iam_role" "bastian_role" {
   })
 }
 
-resource "aws_iam_policy" "bastian_secrets_policy" {
-  name = "bastian-secrets-read-policy"
+resource "aws_iam_policy" "bastion_secrets_policy" {
+  name = "bastion-secrets-read-policy"
 
-  policy = jsondecode({
+  policy = jsonencode({
     version = "2012-10-17"
     statement = [
       {
         Effect = "Allow"
         Action = [
-          "secretmanager:getsecretvalue"
+          "secretmanager:GetSecretValue"
         ]
         resource = var.secrets_arn
       }
@@ -51,13 +51,13 @@ resource "aws_iam_policy" "bastian_secrets_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "attach_secrets_policy" {
-  role = aws_iam_role.bastian_role.name
+  role = aws_iam_role.bastion_role.name
   policy_arn = aws_iam_policy.bastion_secrets_policy.arn
 }
 
-resource "aws_iam_instance_profile" "bastian_instance_profile" {
-  name = "bastian_instance_profile"
-  role = aws_iam_role.bastian_role.name
+resource "aws_iam_instance_profile" "bastion_instance_profile" {
+  name = "bastion_instance_profile"
+  role = aws_iam_role.bastion_role.name
 }
 
 resource "aws_instance" "bastion" {
@@ -66,6 +66,8 @@ resource "aws_instance" "bastion" {
   subnet_id     = var.subnet_id
   key_name      = var.key_name
   security_groups = [aws_security_group.bastion.id]
+  iam_instance_profile   = aws_iam_instance_profile.bastion_instance_profile.name
+
   tags = {
     Name = "Bastion Host"
   }

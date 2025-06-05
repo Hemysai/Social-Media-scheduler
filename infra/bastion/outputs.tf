@@ -6,7 +6,7 @@ output "bastion_public_ip" {
   value = aws_instance.bastion.public_ip
 }
 
-output "bastian_iam_instance_profile" {
+output "bastion_iam_instance_profile" {
   value = aws_iam_instance_profile.bastion_instance_profile.name
 }
 
