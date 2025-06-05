@@ -46,4 +46,8 @@ variable "key_name" {
   type = string
 }
 
+variable "secrets_arn" {
+  type        = string
+  description = "ARN of the AWS Secrets Manager secret"
+}
 
