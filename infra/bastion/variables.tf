@@ -14,3 +14,10 @@ variable "my_ip_cidr" {
   type        = string
   description = "Your IP CIDR for SSH access"
 }
+
+variable "secrets_arn" {
+  type = string 
+  description = "ARN of the aws secrets manager secret for  DB pass"
+}
+
+
