@@ -21,10 +21,10 @@ resource "aws_security_group" "bastion" {
 resource "aws_iam_role" "bastion_role" {
   name= "bastion-iam-role"
 
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
     version = "2012-10-17"
     statement = [{
-      Effect = allow
+      Effect = "Allow"
       principal = {
         service = "ec2.amazon.com"
       }
