@@ -16,8 +16,8 @@ variable "my_ip_cidr" {
 }
 
 variable "secrets_arn" {
-  type = string 
-  description = "ARN of the aws secrets manager secret for  DB pass"
+  type        = string
+  description = "ARN of the AWS Secrets Manager secret"
 }
 
 
