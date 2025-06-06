@@ -16,11 +16,3 @@ module "rds" {
 }
 
 
-# module "bastion" {
-#     source     = "./bastion"
-#     vpc_id     = module.vpc.vpc_id
-#     subnet_id  = module.vpc.public_subnet_ids[0]
-#     key_name   = var.key_name
-#     my_ip_cidr = var.my_ip_cidr
-#     secrets_arn = var.secrets_arn
-#   }
