@@ -18,8 +18,8 @@ module "rds" {
  
 }
 
-module "ec2_ssm" {
-  source    = "./ec2_ssm"
+module "ssm" {
+  source    = "./ssm"
   project   = var.project
   vpc_id    = module.vpc.vpc_id
   subnet_id = module.vpc.private_subnet_ids[0]
