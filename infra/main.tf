@@ -13,7 +13,14 @@ module "rds" {
   subnet_ids        = module.vpc.public_subnet_ids
   availability_zone = var.azs[0]
   rds_secret_name   = var.rds_secret_name
-  vpc_cidr            = var.vpc_cidr   
+  vpc_cidr            = var.vpc_cidr  
+  ec2_sg_id           = module.ec2_ssm.ec2_security_group_id
+ 
 }
 
-
+module "ec2_ssm" {
+  source    = "./ec2_ssm"
+  project   = var.project
+  vpc_id    = module.vpc.vpc_id
+  subnet_id = module.vpc.private_subnet_ids[0]
+}
