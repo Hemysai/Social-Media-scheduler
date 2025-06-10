@@ -14,7 +14,7 @@ module "rds" {
   availability_zone = var.azs[0]
   rds_secret_name   = var.rds_secret_name
   vpc_cidr            = var.vpc_cidr  
-  ec2_sg_id           = module.ec2_ssm.ec2_security_group_id
+  ec2_sg_id           = module.ssm.ec2_security_group_id
  
 }
 
