@@ -51,3 +51,4 @@ variable "secrets_arn" {
   description = "ARN of the AWS Secrets Manager secret"
 }
 
+

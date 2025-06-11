@@ -26,7 +26,10 @@ module "ssm" {
   vpc_cidr            = var.vpc_cidr
   region              = var.region
   subnet_id           = module.vpc.private_subnet_ids[0] 
-  ami_id              = "ami-0c2b8ca1dad447f8a"          
+  ami_id              = "ami-0c2b8ca1dad447f8a"    
+  private_route_table_ids = module.vpc.private_route_table_ids
 }
+
+
 
 

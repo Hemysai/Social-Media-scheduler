@@ -28,3 +28,9 @@ variable "subnet_id" {
   type        = string
 }
 
+variable "private_route_table_ids" {
+  type = list(string)
+  description = "List of private route table IDs for attaching endpoints"
+}
+
+
