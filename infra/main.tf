@@ -19,8 +19,14 @@ module "rds" {
 }
 
 module "ssm" {
-  source    = "./ssm"
-  project   = var.project
-  vpc_id    = module.vpc.vpc_id
-  subnet_id = module.vpc.private_subnet_ids[0]
+  source              = "./ssm"
+  project             = var.project
+  vpc_id              = module.vpc.vpc_id
+  private_subnet_ids  = module.vpc.private_subnet_ids
+  vpc_cidr            = var.vpc_cidr
+  region              = var.region
+  subnet_id           = module.vpc.private_subnet_ids[0] 
+  ami_id              = "ami-0c2b8ca1dad447f8a"          
 }
+
+

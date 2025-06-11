@@ -1,4 +1,4 @@
-variable "project" {
+variable "region" {
   type = string
 }
 
@@ -6,11 +6,25 @@ variable "vpc_id" {
   type = string
 }
 
-variable "subnet_id" {
+variable "private_subnet_ids" {
+  type = list(string)
+}
+
+variable "vpc_cidr" {
+  type = string
+}
+
+variable "project" {
   type = string
 }
 
 variable "ami_id" {
-  type = string
-  default = "ami-051f8a213df8bc089" 
+  description = "AMI ID for EC2 instance"
+  type        = string
 }
+
+variable "subnet_id" {
+  description = "Subnet ID to launch EC2 instance"
+  type        = string
+}
+
