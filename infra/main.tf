@@ -30,6 +30,11 @@ module "ssm" {
   private_route_table_ids = module.vpc.private_route_table_ids
 }
 
+module "s3" {
+  source  = "./s3"
+  project = var.project
+}
+
 
 
 
