@@ -1,18 +1,13 @@
-resource "aws_key_pair" "bastion_key" {
-  key_name   = "${var.project}-bastion-key"
-  public_key = file(var.public_key_path)
-}
-
 resource "aws_security_group" "bastion_sg" {
   name        = "${var.project}-bastion-sg"
-  description = "Allow SSH and internet for Bastion"
-  vpc_id      = var.vpc_id
+  description = "Allow SSH from my IP"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # 🔐 restrict later (e.g., to office IP)
+    cidr_blocks = [var.my_ip_cidr]  
   }
 
   egress {
@@ -30,10 +25,10 @@ resource "aws_security_group" "bastion_sg" {
 resource "aws_instance" "bastion" {
   ami                         = var.ami_id
   instance_type               = "t3.micro"
-  key_name                    = aws_key_pair.bastion_key.key_name
-  subnet_id                   = var.public_subnet_id
+  subnet_id                   = aws_subnet.public[0].id
   vpc_security_group_ids      = [aws_security_group.bastion_sg.id]
   associate_public_ip_address = true
+  key_name                    = var.key_name
 
   tags = {
     Name = "${var.project}-bastion"
