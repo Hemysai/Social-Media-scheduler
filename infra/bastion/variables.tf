@@ -1,29 +1,29 @@
-variable "vpc_cidr" {
-  type    = string
-  default = "10.0.0.0/16"
-}
-
 variable "project" {
-  type    = string
-  default = "social-app"
+  type        = string
+  description = "Project name"
 }
 
-variable "vpc_cidr" {
-  type    = string
-  default = "10.0.0.0/16"
+variable "vpc_id" {
+  type        = string
+  description = "VPC ID to launch bastion"
 }
 
-variable "my_ip_cidr" {
-  description = "my ip address in cidr format"
-  type = string
+variable "public_subnet" {
+  type        = string
+  description = "Public subnet ID for bastion instance"
 }
 
 variable "ami_id" {
-  description = "AMI ID for EC2 instance"
   type        = string
+  description = "AMI ID to launch bastion"
 }
 
 variable "key_name" {
-    description = "key vakue for ec2"
-    type = string
+  type        = string
+  description = "Key pair name for SSH access"
+}
+
+variable "my_ip_cidr" {
+  type        = string
+  description = "Your IP CIDR block for SSH access"
 }

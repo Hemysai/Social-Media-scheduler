@@ -33,4 +33,8 @@ variable "private_route_table_ids" {
   description = "List of private route table IDs for attaching endpoints"
 }
 
+variable "bastion_sg_id" {
+  description = "The Security Group ID of the Bastion EC2"
+  type        = string
+}
 

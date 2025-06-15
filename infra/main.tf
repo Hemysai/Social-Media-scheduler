@@ -26,6 +26,7 @@ module "ssm" {
   vpc_cidr            = var.vpc_cidr
   region              = var.region
   subnet_id           = module.vpc.private_subnet_ids[0] 
+  bastion_sg_id = module.bastion.bastion_sg_id
   ami_id              = "ami-0c2b8ca1dad447f8a"    
   private_route_table_ids = module.vpc.private_route_table_ids
 }
@@ -34,6 +35,18 @@ module "s3" {
   source  = "./s3"
   project = var.project
 }
+
+module "bastion" {
+  source        = "./bastion"
+  project       = var.project
+  vpc_id        = module.vpc.vpc_id
+  public_subnet = module.vpc.public_subnet_ids[0]
+  ami_id        = "ami-0c2b8ca1dad447f8a"
+  key_name      = var.key_name
+  my_ip_cidr    = var.my_ip_cidr
+}
+
+
 
 
 
