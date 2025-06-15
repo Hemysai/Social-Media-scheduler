@@ -15,6 +15,16 @@ resource "aws_security_group" "ec2" {
   }
 }
 
+resource "aws_security_group_rule" "allow_bastion_to_ec2" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.ec2.id
+  source_security_group_id = aws_security_group.bastion_sg.id
+  description              = "Allow SSH from Bastion to SSM EC2"
+}
+
 resource "aws_iam_role" "ssm_role" {
   name = "${var.project}-ssm-role"
 
