@@ -51,9 +51,5 @@ variable "secrets_arn" {
   description = "ARN of the AWS Secrets Manager secret"
 }
 
-variable "bastion_sg_id" {
-  description = "The Security Group ID of the Bastion EC2"
-  type        = string
-}
 
 
